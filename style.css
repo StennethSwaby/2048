@@ -1,0 +1,317 @@
+/* =========================================================
+   NEON ARCADE — 2048
+   ========================================================= */
+
+/* Define reusable colors and layout values. */
+:root {
+    --color-background: #0B0B17;
+    --color-surface: #211B37;
+    --color-cell: #302A48;
+
+    --color-cyan: #00F5FF;
+    --color-magenta: #FF4BD8;
+    --color-violet: #9D6BFF;
+
+    --color-text: #F5F3FF;
+    --color-muted: #B7A9D6;
+
+    --board-gap: 10px;
+    --border-radius: 12px;
+}
+
+/*
+   Apply border-box sizing to all elements.
+
+   This makes declared widths include padding and borders,
+   which helps prevent unexpected layout overflow.
+*/
+* {
+    box-sizing: border-box;
+}
+
+/* Style the entire page. */
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    background-color: var(--color-background);
+    color: var(--color-text);
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 24px;
+}
+
+/* Main container that holds our game. */
+.game-container {
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Small heading above the game title. */
+.eyebrow {
+    color: var(--color-cyan);
+    font-size: 12px;
+    letter-spacing: 3px;
+    font-weight: bold;
+}
+
+/* Main 2048 title. */
+.game-header h1 {
+    margin: 10px 0;
+    font-size: 64px;
+    line-height: 1;
+}
+
+/* Short description below the title. */
+.game-description {
+    color: var(--color-muted);
+    font-size: 16px;
+}
+
+/* Position the score boxes beside one another. */
+.scoreboard {
+    display: flex;
+    gap: 12px;
+    margin: 24px 0;
+}
+
+/* Individual score cards. */
+.score-box {
+    flex: 1;
+    background-color: var(--color-surface);
+
+    border: 1px solid var(--color-violet);
+    border-radius: var(--border-radius);
+
+    padding: 12px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Small text identifying each score. */
+.score-label {
+    color: var(--color-muted);
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+/* Current score and best score values. */
+#score,
+#best-score {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#score {
+    color: var(--color-cyan);
+}
+
+#best-score {
+    color: var(--color-magenta);
+}
+
+/* Space below the New Game button. */
+.game-controls {
+    margin-bottom: 20px;
+}
+
+/* Main game control button. */
+#new-game {
+    width: 100%;
+    padding: 14px;
+
+    background-color: var(--color-cyan);
+    color: var(--color-background);
+
+    border: none;
+    border-radius: var(--border-radius);
+
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 2px;
+
+    cursor: pointer;
+}
+
+/* Visual feedback when hovering over the button. */
+#new-game:hover {
+    background-color: var(--color-magenta);
+}
+
+/* Visible focus indicator for keyboard accessibility. */
+#new-game:focus-visible {
+    outline: 3px solid var(--color-magenta);
+    outline-offset: 4px;
+}
+
+/*
+   Create a four-column CSS Grid.
+
+   JavaScript will eventually insert 16 cells into this element.
+*/
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    gap: var(--board-gap);
+
+    background-color: var(--color-surface);
+    border: 2px solid var(--color-violet);
+    border-radius: var(--border-radius);
+
+    padding: var(--board-gap);
+    aspect-ratio: 1 / 1;
+}
+
+/*
+   Style individual board cells.
+
+   This class will be added by JavaScript when cells are created.
+*/
+.cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 0;
+    aspect-ratio: 1 / 1;
+
+    background-color: var(--color-cell);
+    border-radius: 8px;
+
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* Instructions below the board. */
+.instructions {
+    color: var(--color-muted);
+    text-align: center;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+/* Adjust typography and spacing for smaller screens. */
+@media (max-width: 480px) {
+    body {
+        padding: 16px;
+    }
+
+    .game-header h1 {
+        font-size: 48px;
+    }
+
+    .cell {
+        font-size: 22px;
+    }
+
+    :root {
+        --board-gap: 7px;
+    }
+}
+/* =========================================================
+   PHASE 4 — Numbered tile colors
+   ========================================================= */
+
+/* Low-value tiles use cool neon colors. */
+.tile-2 {
+    background-color: #174456;
+    color: #00F5FF;
+}
+
+.tile-4 {
+    background-color: #423477;
+    color: #F5F3FF;
+}
+
+.tile-8 {
+    background-color: #81306D;
+    color: #FFFFFF;
+}
+
+.tile-16 {
+    background-color: #A14C35;
+    color: #FFFFFF;
+}
+
+
+/* =========================================================
+   PHASE 6 — Game status messages
+   ========================================================= */
+
+.game-status {
+    min-height: 24px;
+    margin-top: 16px;
+
+    color: var(--color-magenta);
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* =========================================================
+   PHASE 6 — End-of-game panel
+   ========================================================= */
+
+.game-result {
+    margin-top: 20px;
+    padding: 24px;
+
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-violet);
+    border-radius: var(--border-radius);
+
+    text-align: center;
+}
+
+.game-result[hidden] {
+    display: none;
+}
+
+.game-result h2 {
+    margin-bottom: 12px;
+
+    color: var(--color-magenta);
+    font-size: 28px;
+    letter-spacing: 2px;
+}
+
+#result-message {
+    color: var(--color-text);
+    margin-bottom: 18px;
+}
+
+.developer-invitation {
+    margin-bottom: 18px;
+    color: var(--color-muted);
+    line-height: 1.5;
+}
+
+.portfolio-link {
+    display: inline-block;
+    padding: 12px 16px;
+
+    border: 1px solid var(--color-cyan);
+    border-radius: 8px;
+
+    color: var(--color-cyan);
+    text-decoration: none;
+    font-weight: bold;
+
+    transition: background-color 0.2s ease;
+}
+
+.portfolio-link:hover,
+.portfolio-link:focus-visible {
+    background-color: rgba(0, 245, 255, 0.12);
+}
+

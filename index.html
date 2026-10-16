@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Makes the layout adapt to mobile screen sizes. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title displayed in the browser tab. -->
+    <title>2048 | Neon Arcade</title>
+
+    <!-- Connects our external CSS stylesheet. -->
+    <link rel="stylesheet" href="style.css">
+
+    <!--
+        defer downloads the JavaScript file without blocking HTML parsing.
+        The script executes after the document has been parsed.
+    -->
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <!-- Main landmark for the game's primary content. -->
+    <main class="game-container">
+
+        <header class="game-header">
+            <p class="eyebrow">NEON ARCADE // 001</p>
+
+            <h1>2048</h1>
+
+            <p class="game-description">
+                Merge tiles. Reach 2048.
+            </p>
+        </header>
+
+        <!-- Scoreboard -->
+        <section class="scoreboard" aria-label="Game scores">
+            <div class="score-box">
+                <span class="score-label">SCORE</span>
+                <span id="score">0</span>
+            </div>
+
+            <div class="score-box">
+                <span class="score-label">BEST</span>
+                <span id="best-score">0</span>
+            </div>
+        </section>
+
+        <!-- Button functionality is handled by JavaScript. -->
+        <div class="game-controls">
+            <button id="new-game" type="button">
+                NEW GAME
+            </button>
+        </div>
+
+        <!--
+            JavaScript generates the 16 board cells inside this section.
+            The board's contents are created dynamically.
+        -->
+        <section
+            id="game-board"
+            class="game-board"
+            aria-label="2048 game board">
+        </section>
+
+        <!--
+            The hidden attribute keeps this panel invisible until
+            JavaScript detects a win or a loss.
+        -->
+        <section
+            id="game-result"
+            class="game-result"
+            aria-labelledby="result-title"
+            hidden>
+
+            <h2 id="result-title">GAME OVER</h2>
+
+            <p id="result-message"></p>
+
+            <p class="developer-invitation">
+                Enjoyed the game? Check out the developer's portfolio!
+            </p>
+
+            <a
+                class="portfolio-link"
+                href="https://stennethswaby.github.io/website/"
+                target="_blank"
+                rel="noopener noreferrer">
+                VISIT DEVELOPER'S WEBSITE ↗
+            </a>
+
+        </section>
+
+        <!-- Instructions for playing the game. -->
+        <p class="instructions">
+            Use your arrow keys to move the tiles.
+        </p>
+
+    </main>
+</body>
+</html>
