@@ -253,4 +253,6 @@ Potential improvements include animated tile movement, richer colors for larger 
 
 ## License
 
-No license has yet been selected for this repository. Before publishing a reusable open-source release, choose a license and review any third-party material incorporated into the project.
+This project is licensed under the MIT License.
+
+See the [LICENSE](LICENSE) file for details.
